@@ -4,7 +4,9 @@ const Cache = require('./Cache.js');
 // 新建一个 cache
 const cache = new Cache();
 
-const getUniqueId = shortUniqueId();
+const getUniqueId = shortUniqueId({
+  number: true,
+});
 /**
  * 生成新的短文案
  * @param key
