@@ -10,27 +10,9 @@
  *  - 然后将 intl.get(key, obj) 中的 key 使用 short key 转换，并且映射关系缓存起来
  *  - 如果 short key 已经存在，就直接使用，否则就重新创建
  */
-const shortUniqueId = require('short-unique-string');
 const helper = require('./helper.js');
 const log = require('./log.js');
-const KeyCache = require('./KeyCache.js');
-
-const getUniqueId = shortUniqueId();
-
-const cache = new KeyCache();
-
-/**
- * 生成新的短文案
- * @param key
- * @param prefix
- * @returns {*}
- */
-const getShortKey = (key, prefix) => {
-  if (key.indexOf(prefix) === 0) return key;
-  if (!cache.has(key)) cache.set(key, prefix + getUniqueId());
-
-  return cache.get(key);
-};
+const shortKey = require('./key.js');
 
 // 初始化默认配置
 let pluginConfig = {
@@ -70,7 +52,7 @@ module.exports = function({ types: babelTypes }) {
             const propertyPath = property.get('key');
 
             const key = propertyPath.isStringLiteral() ? propertyPath.node.value : propertyPath.node.name;
-            const k = getShortKey(key, pluginConfig.uniquePrefix);
+            const k = shortKey.getShortKey(key, pluginConfig.uniquePrefix);
             // 如果不相等，则替换
             if (k !== key) {
               propertyPath.replaceWith(
@@ -99,7 +81,7 @@ module.exports = function({ types: babelTypes }) {
             const argument = path.get('arguments.0');
             if (argument.isStringLiteral()) {
               const key = argument.node.value;
-              const k = getShortKey(key, pluginConfig.uniquePrefix);
+              const k = shortKey.getShortKey(key, pluginConfig.uniquePrefix);
               // 如果不相等，则替换
               if (k !== key) {
                 path.node.arguments[0].value = k;

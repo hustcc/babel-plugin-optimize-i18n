@@ -1,25 +1,26 @@
+
 /**
  * 变化 key 的时候，存储的 map
  * key: 实际的 key
  * value: 变换之后的 key
  */
-function KeyCache() {
+function Cache() {
   this.map = {};
 }
 
-KeyCache.prototype.has = function (key) {
+Cache.prototype.has = function (key) {
   return this.map[key] !== undefined;
 };
 
-KeyCache.prototype.get = function (key) {
+Cache.prototype.get = function (key) {
   return this.map[key];
 };
 
-KeyCache.prototype.set = function (key, value) {
+Cache.prototype.set = function (key, value) {
   this.map[key] = value;
 };
 
-KeyCache.prototype.getKey = function (value) {
+Cache.prototype.getKey = function (value) {
   const keys = Object.keys(this.map);
 
   for (let i = 0; i < keys.length; i ++) {
@@ -28,8 +29,8 @@ KeyCache.prototype.getKey = function (value) {
   }
 };
 
-KeyCache.prototype.size = function () {
+Cache.prototype.size = function () {
   return Object.keys(this.map).length;
 };
 
-module.exports = KeyCache;
+module.exports = Cache;

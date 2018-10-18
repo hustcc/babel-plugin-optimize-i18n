@@ -1,4 +1,5 @@
 const path = require('path');
+
 /**
  * 只要有一个配置文件复合，则复合
  * @param localeFiles
