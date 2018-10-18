@@ -1,5 +1,4 @@
 .babelrc
 .idea
 lib
-test
 node_modules

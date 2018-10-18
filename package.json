@@ -4,7 +4,7 @@
   "description": "babel plugin for intl locales optimize. saving 40% ~ 50% bundle size",
   "main": "src/index.js",
   "scripts": {
-    "build": "rm -rf lib && babel test -d lib"
+    "test": "rm -rf lib && babel test -d lib"
   },
   "keywords": [
     "i18n-optimize",
