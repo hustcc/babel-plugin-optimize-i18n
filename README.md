@@ -44,6 +44,20 @@ You can customize the configure of the plugin.
 
 
 
+
+## Constraint
+
+
+For example, when you use the function below to format i18n text.
+
+```js
+intl.get('key', params);
+```
+
+You should be sure the 1st parameter of `intl.get` is string constant, or will be build error.
+
+
+
 ## License
 
 MIT@[hustcc](https://github.com/hustcc).
