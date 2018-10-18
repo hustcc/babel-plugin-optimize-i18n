@@ -26,6 +26,29 @@ Add it into `.babelrc`.
 
 
 
+## Result
+
+
+The source i18n text file below:
+
+```json
+{
+  "module.left.title": "左侧标题",
+  "module.right.title": "右侧标题"
+}
+```
+
+will be transformed to:
+
+```js
+{
+  $1: "左侧标题",
+  $2: "右侧标题"
+}
+```
+
+
+
 ## Configure
 
 
