@@ -2,6 +2,8 @@
 
 A babel plugin for optimizing i18n locales file which can reduce 40% ~ 50% bundle size.
 
+[![npm](https://img.shields.io/npm/v/babel-plugin-optimize-i18n.svg)](https://www.npmjs.com/package/babel-plugin-optimize-i18n)
+[![npm download](https://img.shields.io/npm/dm/babel-plugin-optimize-i18n.svg)](https://www.npmjs.com/package/babel-plugin-optimize-i18n)
 
 
 ## Install
@@ -65,6 +67,18 @@ You can customize the configure of the plugin.
 }
 ```
 
+
+
+## Test
+
+
+```
+npm i
+
+npm t
+```
+
+Then see the files in `lib` dir.
 
 
 
