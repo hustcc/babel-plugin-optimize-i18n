@@ -12,35 +12,21 @@
  */
 const helper = require('./helper.js');
 const log = require('./log.js');
+const config = require('./config.js');
 const shortKey = require('./key.js');
-
-// 初始化默认配置
-let pluginConfig = {
-  localeFiles: ['zh_CN', 'en_US'],
-  i18nFunction: {
-    object: 'intl',
-    property: 'get'
-  },
-  uniquePrefix: '$',
-};
 
 
 module.exports = function({ types: babelTypes }) {
   return {
     name: 'babel-plugin-optimize-i18n',
-    pre(state) {
-      // 将用户配置和默认配置合并
-      pluginConfig = {
-        ...pluginConfig,
-        ...state.opts,
-      }
-    },
+    pre(state) {},
     visitor: {
       /**
        * 将 object 中的 key 变成短地址
        */
       ObjectExpression(path, state) {
         const filenameRelative = state.file.opts.filenameRelative;
+        const pluginConfig = config(state.opts);
         // 如果是目标文件
         if (
           helper.isLocaleFile(pluginConfig.localeFiles, filenameRelative) &&
@@ -73,6 +59,7 @@ module.exports = function({ types: babelTypes }) {
         const property = path.get('callee').get('property');
 
         if (object.isIdentifier() && property.isIdentifier()) {
+          const pluginConfig = config(state.opts);
           // 匹配到 intl.get 方法
           // 1. 校验第一个参数是不是字符串
           // 2. 如果是，则替换，不是则 throw
@@ -87,9 +74,7 @@ module.exports = function({ types: babelTypes }) {
                 path.node.arguments[0].value = k;
               }
             } else {
-              throw new Error(
-                `The 1st parameter of ${pluginConfig.i18nFunction.object}.${pluginConfig.i18nFunction.property} should be a string constant!\n
-                In file ${state.file.opts.filenameRelative}:${argument.node.loc.start.line}:${argument.node.loc.start.column}\n\n`)
+              throw path.buildCodeFrameError(`The first parameter of ${pluginConfig.i18nFunction.object}.${pluginConfig.i18nFunction.property} should be a string constant!`);
             }
           }
         }

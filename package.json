@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-optimize-i18n",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "babel plugin for intl locales optimize. saving 40% ~ 50% bundle size",
   "main": "src/index.js",
   "scripts": {
